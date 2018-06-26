@@ -1,14 +1,15 @@
 package com.naysayer.iseeclinic
 
+import android.content.Context
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-class User() {
+class LoginModel(private var context: Context) {
 
     private var mAuth = FirebaseAuth.getInstance()!!
-    lateinit var mUser: FirebaseUser
+    private lateinit var mUser: FirebaseUser
 
     fun signUp(email: String, password: String) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -35,9 +36,15 @@ class User() {
     private fun successfulAuth(task: Task<AuthResult>) {
         if (task.isSuccessful) {
             mUser = mAuth.currentUser!!
+            startMainActivity()
         } else {
 
         }
         //TODO запускать основное активити
+    }
+
+    private fun startMainActivity() {
+        val intent = MainActivity.newIntent(context)
+        context.startActivity(intent)
     }
 }

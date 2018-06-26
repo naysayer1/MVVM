@@ -1,25 +1,27 @@
 package com.naysayer.iseeclinic
 
-import android.arch.lifecycle.ViewModel
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 
-class LoginViewModel : ViewModel() {
-    var user = User()
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
+
+    private var loginModel = LoginModel(getApplication())
     var email = ""
     var password = ""
 
     fun signIn() {
-        user.signIn(email, password)
+        loginModel.signIn(email, password)
     }
 
     fun signUp() {
-        user.signUp(email, password)
+        loginModel.signUp(email, password)
     }
 
     fun googleSignIn() {
-        user.googleSignIn()
+        loginModel.googleSignIn()
     }
 
     fun forgotPassword() {
-        user.forgotPassword()
+        loginModel.forgotPassword()
     }
 }

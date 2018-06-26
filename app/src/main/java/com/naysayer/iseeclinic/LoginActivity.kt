@@ -6,17 +6,17 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
-import com.naysayer.iseeclinic.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
+import com.naysayer.iseeclinic.databinding.ActivityLoginBinding
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         binding.executePendingBindings()
 

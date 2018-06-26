@@ -3,9 +3,28 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
+    </style>
+
+    <!-- Application theme no action bar -->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Login activity hint appearance style. -->
+    <style name="HintAppearance" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/primaryDarkColor</item>
+    </style>
+
+    <!-- Login activity error appearance style -->
+    <style name="ErrorAppearance" parent="TextAppearance.Design.Error">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorError</item>
     </style>
 
 </resources>
+

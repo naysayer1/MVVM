@@ -5,57 +5,156 @@
 
     <data>
 
-        <import type="android.view.View"/>
-
         <variable
             name="viewModel"
-            type="com.naysayer.mvvm.MainViewModel" />
+            type="com.naysayer.iseeclinic.LoginViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:background="@color/colorLoginActivityBackground"
+        tools:context=".view.LoginActivity">
 
-        <TextView
-            android:id="@+id/repository_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="@{viewModel.text}"
-            app:layout_constraintBottom_toTopOf="@+id/loading"
+        <!--Company logo-->
+        <ImageView
+            android:id="@+id/image_view_login_logo"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:src="@drawable/logo"
+            app:layout_constraintBottom_toTopOf="@id/constraintlayout_login"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
-
-        <ProgressBar
-            android:id="@+id/loading"
-            android:layout_width="wrap_content"
+        <!-- Email, password fields, all buttons-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintlayout_login"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
+            android:layout_marginEnd="@dimen/default_activity_horizontal_margin"
+            android:layout_marginStart="@dimen/default_activity_horizontal_margin"
+            android:focusableInTouchMode="true"
+            android:paddingBottom="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/refresh_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:clickable="@{viewModel.isLoading ? false : true}"
-            android:onClick="@{() -> viewModel.refresh()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <!--Email edit text-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textinputlayout_login_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:errorTextAppearance="@style/ErrorAppearance"
+                app:hintEnabled="true"
+                app:hintTextAppearance="@style/HintAppearance"
+                app:layout_constraintBottom_toTopOf="@id/textinputlayout_login_password"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/emailEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_activity_email_hint"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true"
+                    android:text="@{viewModel.email}" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!--Password edit text-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textinputlayout_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:errorTextAppearance="@style/ErrorAppearance"
+                app:hintEnabled="true"
+                app:hintTextAppearance="@style/HintAppearance"
+                app:layout_constraintTop_toBottomOf="@id/textinputlayout_login_email"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/primaryDarkColor">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_activity_password_hint"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:text="@{viewModel.password}" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--Forgot password text-->
+            <TextView
+                android:onClick="@{()-> viewModel.forgotPassword()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_regular"
+                android:text="@string/login_forgot_password"
+                android:textColor="@color/primaryDarkColor"
+                app:layout_constraintBottom_toBottomOf="@id/checkbox_login_remember_password"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/checkbox_login_remember_password" />
+
+            <!--Remember password checkbox-->
+            <CheckBox
+                android:id="@+id/checkbox_login_remember_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:text="@string/login_remember_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textinputlayout_login_password" />
+
+            <!--Sign in button-->
+            <Button
+                android:id="@+id/button_login_sign_in"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:onClick="@{()-> viewModel.signIn()}"
+                android:text="@string/login_sign_in"
+                app:layout_constraintEnd_toStartOf="@id/button_login_sign_up"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkbox_login_remember_password" />
+
+            <!--Sign up button-->
+            <Button
+                android:id="@+id/button_login_sign_up"
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:onClick="@{()-> viewModel.signUp()}"
+                android:text="@string/login_sign_up"
+                android:textColor="@color/button_sign_up"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/button_login_sign_in"
+                app:layout_constraintTop_toBottomOf="@id/checkbox_login_remember_password" />
+
+            <!--Sign in with Google-->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/product_sans_regular"
+                android:onClick="@{()-> viewModel.googleSignIn()}"
+                android:text="@string/login_sign_in_with_google"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_login_sign_in" />
+            <!--TODO изменить background кнопки sign up в зажатом состояние-->
+            <!--TODO sign in with google button - сделать image button с иконкой гугла-->
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

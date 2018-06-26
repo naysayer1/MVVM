@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "536434948046",
+    "firebase_url": "https://app-for-iseeclinic.firebaseio.com",
+    "project_id": "app-for-iseeclinic",
+    "storage_bucket": "app-for-iseeclinic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536434948046:android:041a1929c504e1fd",
+        "android_client_info": {
+          "package_name": "com.naysayer.iseeclinic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "536434948046-b8fpofokkhosidsdnj1ui4at53qulpo4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.naysayer.iseeclinic",
+            "certificate_hash": "09c940c866c47cf744eebc7783e93668351c8704"
+          }
+        },
+        {
+          "client_id": "536434948046-go474j9oc7ok05vb1kmj8sg10m2j5g7g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6udpIS0zbMK16aSRzemifOQNkcN-BDMQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "536434948046-go474j9oc7ok05vb1kmj8sg10m2j5g7g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

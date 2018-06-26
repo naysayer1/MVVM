@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="primaryColor">#1565c0</color>
+    <color name="primaryLightColor">#5e92f3</color>
+    <color name="primaryDarkColor">#003c8f</color>
+    <color name="primaryTextColor">#ffffff</color>
+
+    <color name="secondaryColor">#ff9800</color>
+    <color name="secondaryLightColor">#ffc947</color>
+    <color name="secondaryDarkColor">#c66900</color>
+    <color name="secondaryTextColor">#000000</color>
+
+    <!-- Login activity-->
+    <color name="colorError">#CC0000</color>
+    <color name="colorLoginActivityBackground">#e0f7fa</color>
 </resources>

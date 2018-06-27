@@ -1,4 +1,4 @@
-package com.naysayer.iseeclinic
+package com.naysayer.iseeclinic.login
 
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import com.naysayer.iseeclinic.R
 import com.naysayer.iseeclinic.databinding.ActivityLoginBinding
 import kotlinx.android.synthetic.main.activity_login.*
 

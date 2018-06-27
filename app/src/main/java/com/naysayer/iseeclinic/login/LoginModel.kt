@@ -1,17 +1,18 @@
-package com.naysayer.iseeclinic
+package com.naysayer.iseeclinic.login
 
 import android.content.Context
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.naysayer.iseeclinic.main.MainActivity
 
 class LoginModel(private var context: Context) {
 
     private var mAuth = FirebaseAuth.getInstance()!!
     private lateinit var mUser: FirebaseUser
 
-    fun signUp(email: String, password: String) {
+    fun signUp(email: String, password: String ) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task -> successfulAuth(task) }
 
@@ -47,4 +48,8 @@ class LoginModel(private var context: Context) {
         val intent = MainActivity.newIntent(context)
         context.startActivity(intent)
     }
+}
+
+interface UserAuth {
+    fun successAuth()
 }

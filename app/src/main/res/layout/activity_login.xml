@@ -57,6 +57,7 @@
                         android:id="@+id/emailEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onTextChanged="@{(text, start, before, count)->viewModel.checkEmailValidation(text)}"
                         android:hint="@string/login_activity_email_hint"
                         android:inputType="textEmailAddress"
                         android:singleLine="true"
@@ -83,6 +84,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/login_activity_password_hint"
                         android:inputType="textPassword"
+                        android:onTextChanged="@{(text, start, before, count)->viewModel.checkPasswordValidation(text)}"
                         android:singleLine="true"
                         android:text="@{viewModel.password}" />
                 </android.support.design.widget.TextInputLayout>

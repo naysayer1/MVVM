@@ -12,7 +12,7 @@ class LoginModel(private var context: Context) {
     private var mAuth = FirebaseAuth.getInstance()!!
     private lateinit var mUser: FirebaseUser
 
-    fun signUp(email: String, password: String ) {
+    fun signUp(email: String, password: String) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task -> successfulAuth(task) }
 
@@ -20,7 +20,7 @@ class LoginModel(private var context: Context) {
         //TODO("Пользователь успешно создается -> (нужен ли тут отдельный поток) -> отправить пользователя в аккаунт Так же нужно обработать возможные ошибки при создание пользователя")
     }
 
-    fun signIn(email: String, password: String) {
+    fun signIn(userAuth: UserAuth, email: String, password: String) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task -> successfulAuth(task) }
     }

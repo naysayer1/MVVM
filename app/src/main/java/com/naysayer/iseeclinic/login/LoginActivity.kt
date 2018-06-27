@@ -1,5 +1,6 @@
 package com.naysayer.iseeclinic.login
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -19,7 +20,6 @@ class LoginActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-        binding.executePendingBindings()
 
         emailEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(editable: Editable?) {

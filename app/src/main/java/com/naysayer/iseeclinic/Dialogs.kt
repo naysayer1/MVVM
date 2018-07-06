@@ -1,29 +1,37 @@
 package com.naysayer.iseeclinic
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
+import android.text.InputType
 import com.afollestad.materialdialogs.MaterialDialog
 
 class Dialogs(_context: Context) {
     private var context = _context
 
-
     fun resetPasswordDialog(onDialogButtonsClick: OnDialogButtonsClick): MaterialDialog {
-        //TODO input dialog or show current email in this dialog
         return MaterialDialog.Builder(context)
-                .content("Сбросить пароль")
-                .positiveText("Да")
-                .negativeText("Нет")
-                .onPositive({ _, _ -> onDialogButtonsClick.onPositiveClick() })
-                .onNegative({ dialog, _ -> onDialogButtonsClick.onNegativeClick(dialog) })
+                .title(R.string.title_forgot_password_dialog)
+                .content(R.string.content_forgot_password_dialog)
+                .inputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+                .input(R.string.hint_edit_text_forgot_password_dialog, R.string.prefill_edit_text_forgot_password_dialog, false) { _, c -> onDialogButtonsClick.onInput(c) }
+                .widgetColor(ContextCompat.getColor(context, R.color.primaryDarkColor))
+                .positiveText(R.string.positive_forgot_password_dialog)
+                .negativeText(R.string.negative_forgot_password_dialog)
+                .positiveColorRes(R.color.primaryDarkColor)
+                .onNegative { dialog, _ -> onDialogButtonsClick.onNegativeClick(dialog) }
+                .negativeColorRes(R.color.primaryDarkColor)
                 .show()
     }
 }
 
 interface OnDialogButtonsClick {
     fun onPositiveClick() {}
+
     fun onNegativeClick(dialog: MaterialDialog) {
         dialog.dismiss()
     }
+
+    fun onInput(c: CharSequence) {}
 }
 
 

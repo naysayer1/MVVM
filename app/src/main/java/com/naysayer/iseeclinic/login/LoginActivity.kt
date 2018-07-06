@@ -3,8 +3,8 @@ package com.naysayer.iseeclinic.login
 import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import com.naysayer.iseeclinic.Dialogs
 import com.naysayer.iseeclinic.OnDialogButtonsClick
 import com.naysayer.iseeclinic.R
@@ -30,8 +30,8 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.showResetPasswordDialog.observe(this, Observer {
             dialogs.resetPasswordDialog(object : OnDialogButtonsClick {
-                override fun onPositiveClick() {
-                    Toast.makeText(this@LoginActivity, "Yes", Toast.LENGTH_SHORT).show()
+                override fun onInput(c: CharSequence) {
+                    loginViewModel.sendPasswordResetEmail(c.toString())
                 }
             })
         })
@@ -51,6 +51,14 @@ class LoginActivity : AppCompatActivity() {
                     textinputlayout_login_password.error = getString(R.string.error_password_is_not_valid)
                 }
                 else -> textinputlayout_login_password.error = ""
+            }
+        })
+
+        loginViewModel.showResetPasswordEmailSend.observe(this, Observer {
+            //TODO не правильно отображается (приходит false а нужно чтоб приходило true)
+            if (!it!!.peekContent()) {
+                Snackbar.make(findViewById(R.id.rootlayout_login), R.string.reset_password_email_content, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.reset_password_email_button) { }.show()
             }
         })
     }

@@ -2,9 +2,7 @@ package com.naysayer.iseeclinic.login
 
 import android.content.Context
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.*
 import com.naysayer.iseeclinic.Validation
 import com.naysayer.iseeclinic.main.MainActivity
 
@@ -13,6 +11,7 @@ class LoginModel(private var context: Context) {
     private var mAuth = FirebaseAuth.getInstance()!!
     private lateinit var mUser: FirebaseUser
     private val validation = Validation()
+    var b = false
 
     fun isEmailValid(email: String): Boolean {
         return validation.isEmailValid(email)
@@ -33,10 +32,15 @@ class LoginModel(private var context: Context) {
     fun signIn(email: String, password: String) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task -> successfulAuth(task) }
+
     }
 
     fun googleSignIn() {
 
+    }
+
+    fun sendPasswordResetEmail(email: String) {
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener { task: Task<Void> -> b = task.isSuccessful }
     }
 
     private fun successfulAuth(task: Task<AuthResult>) {
@@ -44,7 +48,23 @@ class LoginModel(private var context: Context) {
             mUser = mAuth.currentUser!!
             startMainActivity()
         } else {
-            //TODO обработка ошибок
+            when (task.exception) {
+                is FirebaseAuthUserCollisionException -> {
+                    //TODO Пользователь с таким email'ом существует
+                }
+            }
+        }
+    }
+
+    private fun successful(task: Task<Void>) {
+        if (!task.isSuccessful) {
+            when (task.exception) {
+                is FirebaseAuthEmailException -> {
+                    //TODO обработка ошибки
+                }
+            }
+        } else {
+
         }
     }
 

@@ -18,4 +18,17 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <!--Dialogs-->
+    <!--Forgot password dialogs-->
+    <string name="title_forgot_password_dialog">Reset the password</string>
+    <string name="content_forgot_password_dialog">Please enter the email that you used to sign in.</string>
+    <string name="hint_edit_text_forgot_password_dialog">Email</string>
+    <string name="prefill_edit_text_forgot_password_dialog" />
+    <string name="positive_forgot_password_dialog">Reset</string>
+    <string name="negative_forgot_password_dialog">Cancel</string>
+
+    <!--Snackbar-->
+    <string name="reset_password_email_content">Password reset email sent</string>
+    <string name="reset_password_email_button">Got it</string>
 </resources>

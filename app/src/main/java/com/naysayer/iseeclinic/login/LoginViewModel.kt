@@ -34,6 +34,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     val showResetPasswordEmailSend: LiveData<Event<Boolean>>
         get() = _showResetPasswordEmailSend
 
+    fun ifUserAlreadyExist(){
+        loginModel.ifUserAlreadyExist()
+    }
+
     fun signIn() {
         if (!isEmailValid or !isPasswordValid) {
             //TODO емаил или пароль неверны при входе
@@ -63,7 +67,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun sendPasswordResetEmail(email: String) {
-        //TODO надо возвращять положительный или отрицательный результат из viewmodel
+        //TODO надо возвращять положительный или отрицательный результат из model
         loginModel.sendPasswordResetEmail(email)
         _showResetPasswordEmailSend.value = Event(content = true)
     }

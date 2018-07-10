@@ -21,6 +21,12 @@ class LoginModel(private var context: Context) {
         return validation.isPasswordValid(password)
     }
 
+    fun ifUserAlreadyExist() {
+        if (mAuth.currentUser != null) {
+            startMainActivity()
+        }
+    }
+
     fun signUp(email: String, password: String) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task -> successfulAuth(task) }

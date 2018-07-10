@@ -28,6 +28,8 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = loginViewModel
         binding.executePendingBindings()
 
+        loginViewModel.ifUserAlreadyExist()
+
         loginViewModel.showResetPasswordDialog.observe(this, Observer {
             dialogs.resetPasswordDialog(object : OnDialogButtonsClick {
                 override fun onInput(c: CharSequence) {

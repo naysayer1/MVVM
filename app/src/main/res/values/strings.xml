@@ -31,4 +31,7 @@
     <!--Snackbar-->
     <string name="reset_password_email_content">Password reset email sent</string>
     <string name="reset_password_email_button">Got it</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

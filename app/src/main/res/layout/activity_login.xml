@@ -20,12 +20,13 @@
         tools:context=".view.LoginActivity">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/card_view_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/default_activity_horizontal_margin"
             android:layout_marginStart="@dimen/default_activity_horizontal_margin"
             android:focusableInTouchMode="true"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,33 +37,64 @@
                 android:id="@+id/constraintlayout_login"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
+                <!--User name edit text-->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/textinputlayout_login_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:hint="@string/login_activity_name_hint"
+                    android:visibility="@{viewModel.isSignUp ? View.VISIBLE : View.GONE}"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="@style/ErrorAppearance"
+                    app:hintEnabled="true"
+                    app:hintTextAppearance="@style/HintAppearance"
+                    app:layout_constraintBottom_toTopOf="@id/textinputlayout_login_email"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/nameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:onTextChanged="@{(text, start, before, count)->viewModel.getUserName(text)}"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
 
                 <!--Email edit text-->
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/textinputlayout_login_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/login_activity_email_hint"
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/ErrorAppearance"
                     app:hintEnabled="true"
                     app:hintTextAppearance="@style/HintAppearance"
                     app:layout_constraintBottom_toTopOf="@id/textinputlayout_login_password"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textinputlayout_login_name">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/emailEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onTextChanged="@{(text, start, before, count)->viewModel.checkEmailValidation(text)}"
-                        android:hint="@string/login_activity_email_hint"
                         android:inputType="textEmailAddress"
-                        android:singleLine="true"
-                        android:text="@{viewModel.email}" />
+                        android:onTextChanged="@{(text, start, before, count)->viewModel.checkEmailValidation(text)}"
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -71,10 +103,16 @@
                     android:id="@+id/textinputlayout_login_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/login_activity_password_hint"
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/ErrorAppearance"
                     app:hintEnabled="true"
                     app:hintTextAppearance="@style/HintAppearance"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textinputlayout_login_email"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/primaryDarkColor">
@@ -83,21 +121,22 @@
                         android:id="@+id/passwordEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/login_activity_password_hint"
+                        android:fontFamily="sans-serif"
                         android:inputType="textPassword"
                         android:onTextChanged="@{(text, start, before, count)->viewModel.checkPasswordValidation(text)}"
-                        android:singleLine="true"
-                        android:text="@{viewModel.password}" />
+                        android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
 
                 <!--Forgot password text-->
                 <TextView
+                    android:id="@+id/textView_login_forgot_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
+                    android:layout_marginStart="16dp"
                     android:onClick="@{()-> viewModel.forgotPassword()}"
                     android:text="@string/login_forgot_password"
                     android:textColor="@color/primaryDarkColor"
+                    android:visibility="@{viewModel.isSignUp ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@id/checkbox_login_remember_password"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/checkbox_login_remember_password" />
@@ -105,11 +144,12 @@
                 <!--Remember password checkbox-->
                 <CheckBox
                     android:id="@+id/checkbox_login_remember_password"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="sans-serif"
                     android:text="@string/login_remember_password"
+                    android:visibility="@{viewModel.isSignUp ? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textinputlayout_login_password" />
 
@@ -119,56 +159,92 @@
                     style="@style/Base.Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="sans-serif"
-                    android:onClick="@{()-> viewModel.signIn()}"
-                    android:text="@string/login_sign_in"
-                    app:layout_constraintEnd_toStartOf="@id/button_login_sign_up"
+                    android:background="@drawable/login_button_background"
+                    android:onClick="@{()-> viewModel.signInOrSignUp()}"
+                    android:text="@{viewModel.isSignUp ? @string/login_sign_up : @string/login_sign_in}"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/checkbox_login_remember_password" />
 
-                <!--Sign up button-->
-                <Button
-                    android:id="@+id/button_login_sign_up"
-                    style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-                    android:layout_width="0dp"
+                <!--Sign in with VK-->
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab_login_vk"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="sans-serif"
-                    android:onClick="@{()-> viewModel.signUp()}"
-                    android:text="@string/login_sign_up"
-                    android:textColor="@color/button_sign_up"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/button_login_sign_in"
-                    app:layout_constraintTop_toBottomOf="@id/checkbox_login_remember_password" />
+                    android:layout_margin="@dimen/fab_margin"
+                    android:onClick="@{()-> viewModel.signInWithPhoneNumber()}"
+                    android:src="@drawable/ic_login_number_sign_in_fab_24dp"
+                    app:backgroundTint="@android:color/holo_blue_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/fab_login_google"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_login_sign_in"
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
 
                 <!--Sign in with Google-->
-                <Button
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab_login_google"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/product_sans_regular"
-                    android:onClick="@{()-> viewModel.googleSignIn()}"
-                    android:text="@string/login_sign_in_with_google"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/button_login_sign_in" />
-                <!--TODO изменить background кнопки sign up в зажатом состояние-->
-                <!--TODO sign in with google button - сделать image button с иконкой гугла-->
+                    android:layout_margin="@dimen/fab_margin"
+                    android:onClick="@{()-> viewModel.signInWithGoogle()}"
+                    android:src="@drawable/googleg_standard_color_18"
+                    app:backgroundTint="@android:color/white"
+                    app:layout_constraintEnd_toStartOf="@id/fab_login_anonymous"
+                    app:layout_constraintStart_toEndOf="@+id/fab_login_vk"
+                    app:layout_constraintTop_toBottomOf="@+id/button_login_sign_in" />
 
-                <ProgressBar
-                    android:id="@+id/progressbar_login"
+                <!--Sign in anonymous-->
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab_login_anonymous"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:onClick="@{()-> viewModel.signInAnonymously()}"
+                    android:src="@drawable/ic_login_anon_sign_in_fab_24dp"
+                    app:backgroundTint="@android:color/darker_gray"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/fab_login_google"
+                    app:layout_constraintTop_toBottomOf="@+id/button_login_sign_in" />
 
             </android.support.constraint.ConstraintLayout>
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />
+
         </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/textview_login_have_not_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@{viewModel.isSignUp ? @string/login_have_an_account : @string/login_have_not_account}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textview_login_registration"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_login_registration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:onClick="@{()-> viewModel.switchLoginMethod()}"
+            android:text="@{viewModel.isSignUp ? @string/login_sign_in : @string/login_sign_up}"
+            android:textColor="@color/primaryColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textview_login_have_not_account"
+            app:layout_constraintTop_toTopOf="@id/textview_login_have_not_account" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

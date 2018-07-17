@@ -46,9 +46,19 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.2'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
 
     // Material dialogs
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+
+    // Preference
+    implementation 'com.android.support:preference-v7:27.1.1'
+
+    //VK
+    implementation 'com.vk:androidsdk:1.6.8'
+
+    //Transactions
+    implementation "com.andkulikov:transitionseverywhere:1.8.0"
 }
 
 kapt {

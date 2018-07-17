@@ -9,6 +9,7 @@ class Validation {
         val name: String
         val code: String
 
+
         if (email.contains(" ")) {
             return false
         }

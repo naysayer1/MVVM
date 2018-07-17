@@ -3,36 +3,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_account"
+            android:icon="@drawable/ic_nav_menu_account_24dp"
+            android:title="@string/nav_menu_account" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_tests"
+            android:icon="@drawable/ic_nav_menu_tests_24dp"
+            android:title="@string/nav_menu_tests" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_specialists"
+            android:icon="@drawable/ic_nav_menu_specialists_24dp"
+            android:title="@string/nav_menu_specialists" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_price"
+            android:icon="@drawable/ic_nav_menu_price_24dp"
+            android:title="@string/nav_menu_price" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_send_email"
+            android:icon="@drawable/ic_nav_menu_send_email_24dp"
+            android:title="@string/nav_menu_send_email" />
+        <item
+            android:id="@+id/nav_call"
+            android:icon="@drawable/ic_nav_menu_call_24dp"
+            android:title="@string/nav_menu_call" />
+        <item
+            android:id="@+id/nav_our_location"
+            android:icon="@drawable/ic_nav_menu_our_location_24dp"
+            android:title="@string/nav_menu_our_location" />
+    </group>
 
+    <group
+        android:id="@+id/group3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_nav_menu_share_24dp"
+            android:title="@string/nav_menu_share" />
+        <item
+            android:id="@+id/nav_rate"
+            android:icon="@drawable/ic_nav_menu_rate_24dp"
+            android:title="@string/nav_menu_rate" />
+    </group>
+
+    <group
+        android:id="@+id/group4"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_nav_menu_settings_24dp"
+            android:title="@string/nav_menu_settings" />
+    </group>
 </menu>

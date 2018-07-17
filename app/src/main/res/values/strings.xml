@@ -1,37 +1,59 @@
+<!-- TODO: Проверить-->
 <resources>
+
+    <!--[LOGIN ACTIVITY START]-->
+    <string name="login_activity_email_hint">Эл. адрес</string>
+    <string name="login_activity_password_hint">Пароль</string>
+    <string name="login_activity_name_hint">Имя</string>
+    <string name="login_forgot_password">Забыли пароль?</string>
+    <string name="login_remember_password">Запомнить</string>
+    <string name="login_have_not_account">Нет аккаунта?</string>
+    <string name="login_have_an_account">Уже есть аккаунт?</string>
+    <string name="login_sign_in">Войти</string>
+    <string name="login_sign_up">Зарегестрироваться</string>
+
+    <string name="error_email_is_not_valid">Пожалуйста укажите действительный email</string>
+    <string name="error_password_is_not_valid">Пароль должен быть не короче 6 символов и содержать хотя бы 1 цифру.
+        Использовать можно только буквы латинского алфавита и цифры.</string>
+
+    <!--Forgot password dialogs-->
+    <string name="title_forgot_password_dialog">Сбросить пароль</string>
+    <string name="content_forgot_password_dialog">Пожалуйста введите email, который вы использовали для входа.</string>
+    <string name="hint_edit_text_forgot_password_dialog">Email</string>
+    <string name="prefill_edit_text_forgot_password_dialog" />
+    <string name="positive_forgot_password_dialog">Сбросить</string>
+    <string name="negative_forgot_password_dialog">Отмена</string>
+
+    <!--Snackbar-->
+    <string name="reset_password_email_content">Ссылка для сброса пароля отправлена на указанный адрес</string>
+    <string name="reset_password_email_button">Понятно</string>
+
+    <!--[LOGIN ACTIVITY END]-->
+
+
+    <string name="default_client_id">536434948046-go474j9oc7ok05vb1kmj8sg10m2j5g7g.apps.googleusercontent.com</string>
     <string name="app_name">Я Вижу!</string>
-    <string name="login_activity_email_hint">Email</string>
-    <string name="login_activity_password_hint">Password</string>
-    <string name="login_forgot_password">Forgot your password?</string>
-    <string name="login_remember_password">Remember</string>
-    <string name="login_sign_in">Sign in</string>
-    <string name="login_sign_up">Sign up</string>
-    <string name="login_sign_in_with_google">Sign in with google</string>
 
-    <string name="error_email_is_not_valid">Please enter a valid email</string>
-    <string name="error_password_is_not_valid">Please enter a valid password</string>
-
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Я Вижу!</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Настройки</string>
 
-    <!--Dialogs-->
-    <!--Forgot password dialogs-->
-    <string name="title_forgot_password_dialog">Reset the password</string>
-    <string name="content_forgot_password_dialog">Please enter the email that you used to sign in.</string>
-    <string name="hint_edit_text_forgot_password_dialog">Email</string>
-    <string name="prefill_edit_text_forgot_password_dialog" />
-    <string name="positive_forgot_password_dialog">Reset</string>
-    <string name="negative_forgot_password_dialog">Cancel</string>
-
-    <!--Snackbar-->
-    <string name="reset_password_email_content">Password reset email sent</string>
-    <string name="reset_password_email_button">Got it</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Nav menu items-->
+    <string name="nav_menu_account">Личный кабинет</string>
+    <string name="nav_menu_tests">Тесты</string>
+    <string name="nav_menu_specialists">Специалисты</string>
+    <string name="nav_menu_price">Цены</string>
+    <string name="nav_menu_site">Наш сайт</string>
+    <string name="nav_menu_send_email">Написать нам</string>
+    <string name="nav_menu_call">Позвонить нам</string>
+    <string name="nav_menu_share">Поделиться</string>
+    <string name="nav_menu_rate">Оценить</string>
+    <string name="nav_menu_settings">Настройки</string>
+    <string name="nav_menu_our_location">Как добраться</string>
+    <string name="action_about">О приложении</string>
+    <string name="action_log_out">Выйти</string>
 </resources>

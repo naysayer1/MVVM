@@ -1,26 +1,29 @@
 package com.naysayer.iseeclinic.login
 
-import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
-import android.util.Log
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.naysayer.iseeclinic.Event
+import com.naysayer.iseeclinic.SingleLiveData
 
 
-class LoginViewModel(application: Application) : AndroidViewModel(application) {
+class LoginViewModel : ViewModel() {
 
-    private var loginModel = LoginModel(getApplication())
+    private var loginModel = LoginModel()
+
     private val _showResetPasswordDialog = MutableLiveData<Event<Boolean>>()
     private val _showEmailIsNotValidError = MutableLiveData<Event<Boolean>>()
     private val _showPasswordIsNotValidError = MutableLiveData<Event<Boolean>>()
-    private val _showResetPasswordEmailSend = MutableLiveData<Event<Boolean>>()
+
     private var isEmailValid = false
     private var isPasswordValid = false
-    var email = ""
-    var password = ""
-    var isLoading = ObservableField<Boolean>()
+    val isLoading = ObservableField<Boolean>()
+    val isSignUp = ObservableField<Boolean>(false)
+    private var email = ""
+    private var password = ""
+    private var name = ""
 
     val showResetPasswordDialog: LiveData<Event<Boolean>>
         get() = _showResetPasswordDialog
@@ -31,56 +34,139 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     val showPasswordIsNotValidError: LiveData<Event<Boolean>>
         get() = _showPasswordIsNotValidError
 
-    val showResetPasswordEmailSend: LiveData<Event<Boolean>>
-        get() = _showResetPasswordEmailSend
+    val startMainActivityEvent = SingleLiveData<Pair<LoginModel, Boolean>>()
+    val startGoogleSignInActivityEvent = SingleLiveData<Pair<LoginModel, Boolean>>()
+    val showSnackbar = SingleLiveData<Pair<LoginModel, Boolean>>()
+    val showSignUp = SingleLiveData<Pair<LoginModel, Boolean?>>()
+    val showEmailCollisionToast = SingleLiveData<Pair<LoginModel, Boolean>>()
+    val showInvalidEmailOrPasswordToast = SingleLiveData<Pair<LoginModel, Boolean>>()
 
-    fun ifUserAlreadyExist(){
-        loginModel.ifUserAlreadyExist()
-    }
-
-    fun signIn() {
-        if (!isEmailValid or !isPasswordValid) {
-            //TODO емаил или пароль неверны при входе
-            Log.d("Error", "Invalid email or password")
-        } else {
-            isLoading.set(true)
-            loginModel.signIn(email, password)
+    fun isUserAlreadyExist() {
+        if (loginModel.isUserAlreadyExist()) {
+            startMainActivityEvent.value = loginModel to true
         }
     }
 
-    fun signUp() {
-        if (!isEmailValid or !isPasswordValid) {
-            //TODO емаил или пароль неверны при регистрации
-            Log.d("Error", "Invalid email or password")
-        } else {
+    private fun signInUser() {
+        if (email.isNotEmpty() && password.isNotEmpty()) {
             isLoading.set(true)
-            loginModel.signUp(email, password)
+            loginModel.signIn(email, password, loginResult())
         }
     }
 
-    fun googleSignIn() {
-        loginModel.googleSignIn()
+    private fun signUpUser() {
+        if (isEmailValid && isPasswordValid) {
+            isLoading.set(true)
+            loginModel.signUp(name, email, password, registrationResult())
+        }
+    }
+
+    fun signInOrSignUp() {
+        when (isSignUp.get()) {
+            true -> {
+                // Start sign up user
+                signUpUser()
+            }
+            false -> {
+                //Start sign in user
+                signInUser()
+            }
+        }
+    }
+
+    fun signInWithGoogle() {
+        startGoogleSignInActivityEvent.value = loginModel to true
+    }
+
+    fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        isLoading.set(true)
+        loginModel.firebaseAuthWithGoogle(acct, loginResult())
+    }
+
+    fun signInAnonymously() {
+        isLoading.set(true)
+        loginModel.signInAnonymously(loginResult())
+    }
+
+    fun signInWithPhoneNumber(){
+        //TODO Sign in with phone number
     }
 
     fun forgotPassword() {
         _showResetPasswordDialog.value = Event(true)
     }
 
+    fun switchLoginMethod() {
+        showSignUp.value = loginModel to isSignUp.get()
+        isSignUp.set(!isSignUp.get()!!)
+        _showPasswordIsNotValidError.value = Event(true)
+        _showEmailIsNotValidError.value = Event(true)
+    }
+
     fun sendPasswordResetEmail(email: String) {
-        //TODO надо возвращять положительный или отрицательный результат из model
-        loginModel.sendPasswordResetEmail(email)
-        _showResetPasswordEmailSend.value = Event(content = true)
+        loginModel.sendPasswordResetEmail(email, sendingEmailResult())
     }
 
     fun checkEmailValidation(text: CharSequence) {
-        isEmailValid = loginModel.isEmailValid(text.toString())
-        _showEmailIsNotValidError.value = Event(content = isEmailValid)
+        if (isSignUp.get()!!) {
+            isEmailValid = loginModel.isEmailValid(text.toString())
+            _showEmailIsNotValidError.value = Event(isEmailValid)
+        }
         email = text.toString()
     }
 
     fun checkPasswordValidation(text: CharSequence) {
-        isPasswordValid = loginModel.isPasswordValid(text.toString())
-        _showPasswordIsNotValidError.value = Event(content = isPasswordValid)
+        if (isSignUp.get()!!) {
+            isPasswordValid = loginModel.isPasswordValid(text.toString())
+            _showPasswordIsNotValidError.value = Event(isPasswordValid)
+        }
         password = text.toString()
+    }
+
+    fun getUserName(text: CharSequence) {
+        name = text.toString()
+    }
+
+    private fun registrationResult(): AuthResults {
+        return object : AuthResults {
+            override fun successfully() {
+                startMainActivityEvent.value = loginModel to true
+                isLoading.set(false)
+            }
+
+            override fun unsuccessfully() {
+                showEmailCollisionToast.value = loginModel to true
+                isLoading.set(false)
+            }
+
+        }
+    }
+
+    private fun loginResult(): AuthResults {
+        return object : AuthResults {
+            override fun successfully() {
+                startMainActivityEvent.value = loginModel to true
+                isLoading.set(false)
+            }
+
+            override fun unsuccessfully() {
+                showInvalidEmailOrPasswordToast.value = loginModel to true
+                isLoading.set(false)
+                //TODO обработка ошибок входа(обычного, с гуглом, анонимного)
+            }
+
+        }
+    }
+
+    private fun sendingEmailResult(): AuthResults {
+        return object : AuthResults {
+            override fun successfully() {
+                showSnackbar.value = loginModel to true
+            }
+
+            override fun unsuccessfully() {
+                showSnackbar.value = loginModel to false
+            }
+        }
     }
 }

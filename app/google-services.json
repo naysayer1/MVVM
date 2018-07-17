@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "536434948046-b8fpofokkhosidsdnj1ui4at53qulpo4.apps.googleusercontent.com",
+          "client_id": "536434948046-rq1tans5afhpumu0tbr75940gr10f1pd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.naysayer.iseeclinic",
-            "certificate_hash": "09c940c866c47cf744eebc7783e93668351c8704"
+            "certificate_hash": "36c91276075a7a8b19535ea7c15d5983f081fed2"
           }
         },
         {

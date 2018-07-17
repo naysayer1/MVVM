@@ -2,22 +2,22 @@ package com.naysayer.iseeclinic.main
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.text.TextUtils.replace
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.naysayer.iseeclinic.R
-import com.naysayer.iseeclinic.UserInfoFragment
+import com.naysayer.iseeclinic.fragments.UserInfoFragment
+import com.naysayer.iseeclinic.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.content_main.*
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -64,38 +64,74 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
             R.id.action_settings -> return true
+            R.id.action_about -> return true
+            R.id.action_log_out -> {
+                if (FirebaseAuth.getInstance().currentUser != null) {
+                    FirebaseAuth.getInstance().signOut()
+                    startActivity(LoginActivity.newIntent(this))
+                    finish()
+                }
+            }
             else -> return super.onOptionsItemSelected(item)
         }
+        return false
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
+            R.id.nav_account -> {
                 val userInfoFragment = UserInfoFragment()
                 supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.fragment, userInfoFragment)
                         .commit()
             }
-            R.id.nav_gallery -> {
-
+            R.id.nav_tests -> {
             }
-            R.id.nav_slideshow -> {
-
+            R.id.nav_specialists -> {
             }
-            R.id.nav_manage -> {
-
+            R.id.nav_price -> {
+            }
+            R.id.nav_send_email -> {
+                sendEmail()
+            }
+            R.id.nav_call -> {
+                callUs()
+            }
+            R.id.nav_our_location -> {
+                ourLocation()
             }
             R.id.nav_share -> {
-
             }
-            R.id.nav_send -> {
-
+            R.id.nav_rate -> {
+            }
+            R.id.nav_settings -> {
             }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun sendEmail() {
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        emailIntent.type = "plain/text"
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("jon@example.com")) //TODO create email for app
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Вопрос")
+        startActivity(emailIntent)
+    }
+
+    private fun callUs() {
+        val number = Uri.parse("tel:88126599999")
+        val callIntent = Intent(Intent.ACTION_DIAL, number)
+        startActivity(callIntent)
+    }
+
+    private fun ourLocation() {
+        val location = Uri.parse("geo:59.851416, 30.281929?q=59.851416, 30.281929" +
+                "(Центр Микрохтрургии Глаза+\"Я Вижу!\")") //TODO посмотреть какие конкретно координаты указаны у нас, чтоб в картах открывалось страница с "я вижу!"
+        val mapIntent = Intent(Intent.ACTION_VIEW, location)
+        startActivity(mapIntent)
     }
 }

@@ -1,81 +1,106 @@
 package com.naysayer.iseeclinic.login
 
-import android.content.Context
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import com.naysayer.iseeclinic.Validation
-import com.naysayer.iseeclinic.main.MainActivity
 
-class LoginModel(private var context: Context) {
+
+class LoginModel {
 
     private var mAuth = FirebaseAuth.getInstance()!!
-    private lateinit var mUser: FirebaseUser
     private val validation = Validation()
-    var b = false
 
-    fun isEmailValid(email: String): Boolean {
-        return validation.isEmailValid(email)
-    }
+    fun isEmailValid(email: String) = validation.isEmailValid(email)
 
-    fun isPasswordValid(password: String): Boolean {
-        return validation.isPasswordValid(password)
-    }
+    fun isPasswordValid(password: String) = validation.isPasswordValid(password)
 
-    fun ifUserAlreadyExist() {
+    fun isUserAlreadyExist(): Boolean {
         if (mAuth.currentUser != null) {
-            startMainActivity()
+            return true
         }
+        return false
     }
 
-    fun signUp(email: String, password: String) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task -> successfulAuth(task) }
-
-
-        //TODO("Пользователь успешно создается -> (нужен ли тут отдельный поток) -> отправить пользователя в аккаунт Так же нужно обработать возможные ошибки при создание пользователя")
-    }
-
-    fun signIn(email: String, password: String) {
+    fun signIn(email: String, password: String, authResults: AuthResults) {
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task -> successfulAuth(task) }
-
+                .addOnCompleteListener { successfulLogin(it, authResults) }
     }
 
-    fun googleSignIn() {
 
+    fun signInAnonymously(authResults: AuthResults) {
+        mAuth.signInAnonymously()
+                .addOnCompleteListener { successfulLogin(it, authResults) }
     }
 
-    fun sendPasswordResetEmail(email: String) {
-        mAuth.sendPasswordResetEmail(email).addOnCompleteListener { task: Task<Void> -> b = task.isSuccessful }
-    }
-
-    private fun successfulAuth(task: Task<AuthResult>) {
-        if (task.isSuccessful) {
-            mUser = mAuth.currentUser!!
-            startMainActivity()
-        } else {
-            when (task.exception) {
-                is FirebaseAuthUserCollisionException -> {
-                    //TODO Пользователь с таким email'ом существует
-                }
+    fun firebaseAuthWithGoogle(acct: GoogleSignInAccount, authResults: AuthResults) {
+        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        mAuth.signInWithCredential(credential).addOnCompleteListener {
+            if (!it.isSuccessful) {
+                //todo обработка ошибки
+            } else {
+                authResults.successfully()
             }
         }
     }
 
-    private fun successful(task: Task<Void>) {
+    fun signUp(name: String, email: String, password: String, authResults: AuthResults) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { successfulRegistration(name, it, authResults) }
+    }
+
+    fun sendPasswordResetEmail(email: String, authResults: AuthResults) {
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener { successful(it, authResults) }
+    }
+
+    private fun successfulLogin(task: Task<AuthResult>,
+                                authResults: AuthResults) {
+        if (task.isSuccessful) {
+            authResults.successfully()
+        } else {
+            authResults.unsuccessfully()
+        }
+    }
+
+    private fun successfulRegistration(name: String,
+                                       task: Task<AuthResult>,
+                                       authResults: AuthResults) {
+        if (task.isSuccessful) {
+            val user = mAuth.currentUser
+            if (user != null) {
+                updateUserName(name, user)
+                authResults.successfully()
+            }
+        } else {
+            when (task.exception) {
+                is FirebaseAuthUserCollisionException -> authResults.unsuccessfully()
+            }
+        }
+    }
+
+    private fun updateUserName(name: String, user: FirebaseUser) {
+        val profileUpdates = UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .build()
+        user.updateProfile(profileUpdates)
+
+    }
+
+    private fun successful(task: Task<Void>, authResults: AuthResults) {
         if (!task.isSuccessful) {
             when (task.exception) {
                 is FirebaseAuthEmailException -> {
-                    //TODO обработка ошибки
+                    authResults.unsuccessfully()
                 }
             }
         } else {
-
+            authResults.successfully()
         }
     }
+}
 
-    private fun startMainActivity() {
-        val intent = MainActivity.newIntent(context)
-        context.startActivity(intent)
-    }
+interface AuthResults {
+    fun successfully()
+    fun unsuccessfully()
 }

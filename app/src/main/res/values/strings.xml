@@ -1,5 +1,5 @@
 <!-- TODO: Проверить-->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--[LOGIN ACTIVITY START]-->
     <string name="login_activity_email_hint">Эл. адрес</string>
@@ -28,10 +28,14 @@
     <string name="reset_password_email_content">Ссылка для сброса пароля отправлена на указанный адрес</string>
     <string name="reset_password_email_button">Понятно</string>
 
+    <string name="incorrect_email_or_password">Неверный эл. адрес или пароль</string>
+    <string name="email_collision">Пользователь с таким емайлом уже существует</string>
+    <string name="sending_email_error">Не удалось отправить письмо на указанный эл. адрес</string>
+
     <!--[LOGIN ACTIVITY END]-->
 
 
-    <string name="default_client_id">536434948046-go474j9oc7ok05vb1kmj8sg10m2j5g7g.apps.googleusercontent.com</string>
+    <string name="default_client_id" tools:ignore="Typos">536434948046-go474j9oc7ok05vb1kmj8sg10m2j5g7g.apps.googleusercontent.com</string>
     <string name="app_name">Я Вижу!</string>
 
     <string name="title_activity_main">Я Вижу!</string>
@@ -56,4 +60,45 @@
     <string name="nav_menu_our_location">Как добраться</string>
     <string name="action_about">О приложении</string>
     <string name="action_log_out">Выйти</string>
+
+    <!--[PHONE SIGN IN ACTIVITY START]-->
+    <string name="phone_number_sign_in_subtitle">Пожалуйста выберите страну и введите ваш номер телефона</string>
+    <string name="phone_number_sign_in_edit_number">Изменить номер телефона</string>
+    <string name="phone_number_sign_in_sms">Мы отправили на ваш телефон SMS с кодом активации.</string>
+    <string name="phone_number_sign_in_enter_code">Пожалуйста введите код ниже.</string>
+    <string name="phone_number_sign_in_enter_hint">Код</string>
+    <string name="phone_number_sign_in_next_button">Далее</string>
+    <string name="phone_number_sign_in_title">Вход по номеру телефона</string>
+    <string name="phone_number_sign_in_enter_phone_hint">Номер телефона</string>
+    <string name="phone_number_sign_in_incorrect_number">Неправильно указан номер</string>
+    <string name="phone_number_sign_in_hint">(XXX) XXX-XX-XX</string>
+    <string name="phone_number_sign_in_incorrect_code">Неверный код!</string>
+    <string name="phone_number_sign_in_error">Неизвестная ошибка. Попробуйте позднее.</string>
+    <!--[PHONE SIGN IN ACTIVITY END]-->
+
+    <!--[START TEST LASIK]-->
+    <string name="_1_question">Сколько Вам лет?</string>
+    <string name="_2_question">Какое у Вас нарушение зрения?</string>
+    <string name="_3_question">Носите ли Вы очки или контактные линзы?</string>
+    <string name="_4_question">Пользуетесь ли Вы очками для чтения?</string>
+    <string name="_5_question">Имеются ли у Вас хронические заболевания?</string>
+    <string name="_6_question">Были ли у Вас травмы глаз или другие операции на глазах?</string>
+    <string name="_7_question">Что Вас больше всего раздражает в очках или в контактных линзах?</string>
+    <string name="_8_question">Что Вы мечтаете сделать, освободившись от необходимости ношения очков и контактных линз?</string>
+
+    <!--Answers-->
+    <string name="answer_to_the_1_question_option_1">меньше 18</string>
+    <string name="answer_to_the_1_question_option_2">от 18 до 45</string>
+    <string name="answer_to_the_1_question_option_3">больше 45</string>
+    <string name="answer_to_the_2_question_option_1">Миопия (близорукость)</string>
+    <string name="answer_to_the_2_question_option_2">Гиперметропия (дальнозоркость)</string>
+    <string name="answer_to_the_2_question_option_3">Астигматизм</string>
+    <string name="answer_to_the_2_question_option_4">Не знаю</string>
+    <string name="answer_to_the_3_question_option_1">Ношу очки</string>
+    <string name="answer_to_the_3_question_option_2">Ношу контактные линзы</string>
+    <string name="answer_to_the_3_question_option_3">Ношу очки и контактные линзы</string>
+    <string name="answer_to_the_3_question_option_4">Не ношу</string>
+    <string name="simple_positive_answer">Да</string>
+    <string name="simple_negative_answer">Нет</string>
+    <!--[END TEST LASIK]-->
 </resources>

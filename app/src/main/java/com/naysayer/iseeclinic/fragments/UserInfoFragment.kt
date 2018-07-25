@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.naysayer.iseeclinic.R
+import com.naysayer.iseeclinic.User
 import kotlinx.android.synthetic.main.fragment_user_info.*
 
 class UserInfoFragment : Fragment() {
@@ -21,6 +22,6 @@ class UserInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userName.text = FirebaseAuth.getInstance().currentUser?.displayName ?: "null"
+        userName.text = FirebaseAuth.getInstance().currentUser!!.displayName
     }
 }

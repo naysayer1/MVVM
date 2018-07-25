@@ -5,16 +5,19 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.naysayer.iseeclinic.R
+import com.naysayer.iseeclinic.fragments.tests.LasikTestFragment
 import com.naysayer.iseeclinic.fragments.UserInfoFragment
-import com.naysayer.iseeclinic.login.LoginActivity
+import com.naysayer.iseeclinic.login.usual.LoginActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -37,7 +40,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mUser = FirebaseAuth.getInstance().currentUser!!
 
         val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+                this,
+                drawer_layout,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -81,13 +88,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_account -> {
-                val userInfoFragment = UserInfoFragment()
-                supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment, userInfoFragment)
-                        .commit()
+                replaceFragment(UserInfoFragment())
             }
             R.id.nav_tests -> {
+                replaceFragment(LasikTestFragment())
             }
             R.id.nav_specialists -> {
             }
@@ -110,9 +114,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
+        drawer_layout.closeDrawer(Gravity.START)
         return true
     }
+
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment, fragment)
+                .commit()
+    }
+
 
     private fun sendEmail() {
         val emailIntent = Intent(Intent.ACTION_SEND)

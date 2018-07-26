@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
+import com.naysayer.iseeclinic.login.UserActionResult
 import com.naysayer.iseeclinic.util.Event
 
 class PhoneNumberSignInViewModel {
@@ -24,19 +25,17 @@ class PhoneNumberSignInViewModel {
         _startRegistrationOfPhoneNumber.value = Event(true)
     }
 
-    fun startPhoneNumberVerification(phoneNumber: String,
-                                     onSignInWithCredentialComplete: OnSignInWithCredentialComplete) {
-        viewModel.startPhoneNumberVerification(phoneNumber, onSignInWithCredentialComplete)
+    fun startPhoneNumberVerification(phoneNumber: String, userActionResult: UserActionResult) {
+        viewModel.startPhoneNumberVerification(phoneNumber, userActionResult)
     }
 
     fun checkCode() {
         _startMainActivityIfCodeIsValid.value = Event(true)
     }
 
-    fun signInWithCode(code: String,
-                       onSignInWithCredentialComplete: OnSignInWithCredentialComplete) {
+    fun signInWithCode(code: String, userActionResult: UserActionResult) {
         isLoading.set(true)
-        viewModel.signInWithCode(code, onSignInWithCredentialComplete)
+        viewModel.signInWithCode(code, userActionResult)
     }
 
 }

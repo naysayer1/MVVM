@@ -99,10 +99,10 @@ public class QuestionCardAdapter extends ArrayAdapter<Question> {
     }
 
     private static class ViewHolder {
-        public TextView question;
-        public RadioGroup radioGroup;
-        public RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
-        public EditText editText;
+        TextView question;
+        RadioGroup radioGroup;
+        RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
+        EditText editText;
 
         ViewHolder(View view) {
             this.question = view.findViewById(R.id.textView_lasik_test_question);

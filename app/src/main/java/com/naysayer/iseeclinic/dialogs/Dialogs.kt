@@ -1,9 +1,10 @@
-package com.naysayer.iseeclinic
+package com.naysayer.iseeclinic.dialogs
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.text.InputType
 import com.afollestad.materialdialogs.MaterialDialog
+import com.naysayer.iseeclinic.R
 
 class Dialogs(_context: Context) {
     private var context = _context
@@ -23,15 +24,3 @@ class Dialogs(_context: Context) {
                 .show()
     }
 }
-
-interface OnDialogButtonsClick {
-    fun onPositiveClick() {}
-
-    fun onNegativeClick(dialog: MaterialDialog) {
-        dialog.dismiss()
-    }
-
-    fun onInput(c: CharSequence) {}
-}
-
-

@@ -11,8 +11,10 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.naysayer.iseeclinic.R
 import com.naysayer.iseeclinic.databinding.ActivityPhoneNumberSignInBinding
+import com.naysayer.iseeclinic.login.UserActionResult
 import com.naysayer.iseeclinic.main.MainActivity
 import com.naysayer.iseeclinic.toast
 import com.transitionseverywhere.Slide
@@ -104,21 +106,29 @@ class PhoneNumberSignInActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun phoneVerificationResultsCallbacks(): OnSignInWithCredentialComplete {
-        return object : OnSignInWithCredentialComplete {
-            override fun onComplete() {
+    private fun phoneVerificationResultsCallbacks(): UserActionResult {
+        return object : UserActionResult {
+            override fun successfullyAuth() {
                 phoneNumberSignInViewModel.isLoading.set(false)
                 startMainActivity()
             }
 
-            override fun onError() {
+            override fun unsuccessfullyAuth() {
                 toast(this@PhoneNumberSignInActivity,
                         getString(R.string.phone_number_sign_in_error))
             }
 
-            override fun onCodeIsInvalid() {
-                toast(this@PhoneNumberSignInActivity,
-                        getString(R.string.phone_number_sign_in_incorrect_code))
+            override fun unsuccessfullyAuth(exception: Exception) {
+                when (exception) {
+                    is FirebaseAuthInvalidCredentialsException -> {
+                        toast(this@PhoneNumberSignInActivity,
+                                getString(R.string.phone_number_sign_in_incorrect_code))
+                    }
+                    else -> {
+                        toast(this@PhoneNumberSignInActivity,
+                                getString(R.string.phone_number_sign_in_error))
+                    }
+                }
             }
         }
     }

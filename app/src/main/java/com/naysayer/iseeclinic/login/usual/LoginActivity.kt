@@ -11,10 +11,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.naysayer.iseeclinic.Dialogs
-import com.naysayer.iseeclinic.OnDialogButtonsClick
 import com.naysayer.iseeclinic.R
 import com.naysayer.iseeclinic.databinding.ActivityLoginBinding
+import com.naysayer.iseeclinic.dialogs.Dialogs
+import com.naysayer.iseeclinic.dialogs.OnDialogButtonsClick
 import com.naysayer.iseeclinic.login.phone.PhoneNumberSignInActivity
 import com.naysayer.iseeclinic.main.MainActivity
 import com.naysayer.iseeclinic.toast
@@ -47,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = loginViewModel
         binding.executePendingBindings()
 
+        // If user notnull -> login user
         loginViewModel.isUserAlreadyExist()
 
         startObserving()

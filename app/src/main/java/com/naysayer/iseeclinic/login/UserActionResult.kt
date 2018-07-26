@@ -1,7 +1,9 @@
 package com.naysayer.iseeclinic.login
 
 interface UserActionResult {
-    fun successfully()
+    fun successfullyAuth()
 
-    fun unsuccessfully()
+    fun unsuccessfullyAuth()
+
+    fun unsuccessfullyAuth(exception: Exception)
 }

@@ -148,12 +148,16 @@ class LoginViewModel : ViewModel() {
 
     private fun signInWithGoogleResult(): UserActionResult {
         return object : UserActionResult {
-            override fun successfully() {
+            override fun unsuccessfullyAuth(exception: Exception) {
+
+            }
+
+            override fun successfullyAuth() {
                 _startMainActivity.value = Event(true)
                 isLoading.set(false)
             }
 
-            override fun unsuccessfully() {
+            override fun unsuccessfullyAuth() {
                 //TODO обработка ошибок входа с гуглом
             }
 
@@ -162,12 +166,16 @@ class LoginViewModel : ViewModel() {
 
     private fun signInResult(): UserActionResult {
         return object : UserActionResult {
-            override fun successfully() {
+            override fun unsuccessfullyAuth(exception: Exception) {
+
+            }
+
+            override fun successfullyAuth() {
                 _startMainActivity.value = Event(true)
                 isLoading.set(false)
             }
 
-            override fun unsuccessfully() {
+            override fun unsuccessfullyAuth() {
                 _showInvalidEmailOrPasswordToast.value = Event(true)
                 isLoading.set(false)
             }
@@ -176,12 +184,16 @@ class LoginViewModel : ViewModel() {
 
     private fun signUpResult(): UserActionResult {
         return object : UserActionResult {
-            override fun successfully() {
+            override fun unsuccessfullyAuth(exception: Exception) {
+
+            }
+
+            override fun successfullyAuth() {
                 _startMainActivity.value = Event(true)
                 isLoading.set(false)
             }
 
-            override fun unsuccessfully() {
+            override fun unsuccessfullyAuth() {
                 _showEmailCollisionErrorToast.value = Event(true)
                 isLoading.set(false)
             }
@@ -190,12 +202,16 @@ class LoginViewModel : ViewModel() {
 
     private fun signInAnonymouslyResult(): UserActionResult {
         return object : UserActionResult {
-            override fun successfully() {
+            override fun unsuccessfullyAuth(exception: Exception) {
+
+            }
+
+            override fun successfullyAuth() {
                 _startMainActivity.value = Event(true)
                 isLoading.set(false)
             }
 
-            override fun unsuccessfully() {
+            override fun unsuccessfullyAuth() {
                 //TODO: Обработать ошибки анонимного входа
                 isLoading.set(false)
             }
@@ -204,11 +220,15 @@ class LoginViewModel : ViewModel() {
 
     private fun emailSendingResult(): UserActionResult {
         return object : UserActionResult {
-            override fun successfully() {
+            override fun unsuccessfullyAuth(exception: Exception) {
+
+            }
+
+            override fun successfullyAuth() {
                 _showPasswordResetEmailSendingResultToast.value = Event(true)
             }
 
-            override fun unsuccessfully() {
+            override fun unsuccessfullyAuth() {
                 _showPasswordResetEmailSendingResultToast.value = Event(false)
             }
         }

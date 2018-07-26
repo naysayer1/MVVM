@@ -7,7 +7,6 @@ class Validation {
 
     private fun isDigit(c: Char): Boolean = c in '0'..'9'
 
-
     fun isEmailValid(email: String): Boolean {
         val indexOfDogSymbol: Int
         val indexOfDotSymbol: Int
@@ -61,9 +60,5 @@ class Validation {
             }
         }
         return charCounter >= 2 && digitCounter >= 1
-    }
-
-    fun isPhoneNumberValid(number: String){
-
     }
 }
